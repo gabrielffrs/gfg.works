@@ -1,11 +1,78 @@
-body {
-    font-family: 'TeXGyreHerosCondensed', sans-serif;
-    font-family: 'TeXGyreHeros', sans-serif;
+@font-face {
+    font-family: 'TeX Gyre Heros';
+    src: url('fonts/texgyreheros-regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
 
-    padding: 28px;
+@font-face {
+    font-family: 'TeX Gyre Heros';
+    src: url('fonts/texgyreheros-italic.woff2') format('woff2');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
 
+@font-face {
+    font-family: 'TeX Gyre Heros';
+    src: url('fonts/texgyreheros-bold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'TeX Gyre Heros';
+    src: url('fonts/texgyreheros-bolditalic.woff2') format('woff2');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+:root {
+    /* --- tokens: cor --- */
+    --color-bg: #ffffff;
+    --color-text: #111111;
+    --color-muted: #8e8e8e;
+
+    /* --- tokens: tipografia --- */
+    --font-body: 'TeX Gyre Heros', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-size-body: 0.9375rem;  /* 15px — tamanho único, sem destaque de "lede" */
+    --line-height: 1.7;
+
+    /* --- tokens: espaçamento (escala de 8px) --- */
+    --space-1: 0.5rem;
+    --space-2: 1rem;
+    --space-3: 1.25rem;
+    --space-4: 2rem;
+
+    /* --- tokens: layout --- */
+    --measure: 30rem; /* coluna mais estreita, ~50-55 caracteres por linha */
+}
+
+* {
     box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height);
+    color: var(--color-text);
+    background-color: var(--color-bg);
+
     margin: 0;
+    padding: var(--space-4);
+}
+
+main {
+    max-width: var(--measure);
+    margin: 0;
+}
+
+main > p {
+    margin: 0 0 var(--space-3) 0;
 }
 
 p a {
@@ -20,6 +87,12 @@ p a:hover {
     animation: pulsar 0.5s infinite alternate ease-in-out;
 }
 
+p a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 4px;
+    border-radius: 2px;
+}
+
 @keyframes pulsar {
     0% {
         color: inherit;
@@ -27,8 +100,37 @@ p a:hover {
         transform: scale(1);
     }
     100% {
-        color: #8e8e8e;
+        color: var(--color-muted);
         opacity: 0.6;
         transform: scale(0.96);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    p a:hover {
+        animation: none;
+        color: var(--color-muted);
+    }
+}
+
+.cursor {
+    display: inline-block;
+    width: 0.5em;
+    height: 1em;
+    margin-left: 1px;
+    background: currentColor;
+    vertical-align: text-bottom;
+    animation: blink 0.8s steps(1) infinite;
+    transition: opacity 0.3s ease;
+}
+
+.cursor-fade {
+    opacity: 0;
+    animation: none;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
     }
 }
